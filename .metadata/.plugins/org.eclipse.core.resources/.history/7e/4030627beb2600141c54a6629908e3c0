@@ -1,0 +1,45 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import java.awt.Color;
+
+import mp.edu.hs.trier.de.model.Model;
+/**
+ * This is the Controller for all the changes regarding Color. 
+ * We differentiate between Stroke and Fill Color.
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+public class ColorController {
+	
+	private Model model;
+	private boolean stroke;
+	
+	/**
+	 * The Standard Constructor receives a model and a boolean value.
+	 * 
+	 * @param model The current model which has to be changed.
+	 * @param stroke Do we manipulate the strokecolor or the fillcolor.
+	 */
+	public ColorController(Model model, boolean stroke)
+	{
+		this.model = model;
+		this.stroke = stroke;
+	}
+	
+	/**
+	 * This Method sets the new Color for either the stroke or the fill
+	 * @param color Parameter containing the Color
+	 */
+	public void setColor(Color color)
+	{
+		System.out.println(color.toString());
+
+		if(stroke)
+			this.model.setStrokeColor(color);
+		else
+			this.model.setFillColor(color);
+	}
+	
+}

@@ -1,0 +1,21 @@
+package mp.edu.hs.trier.de.view.io;
+
+import java.io.File;
+
+import javax.swing.filechooser.FileFilter;
+
+public class AvatarFilter extends FileFilter {
+
+	@Override
+	public boolean accept(File f) {
+		String filename = file.getName();
+		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

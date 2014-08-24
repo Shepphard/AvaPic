@@ -1,0 +1,27 @@
+package mp.edu.hs.trier.de;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import mp.edu.hs.trier.de.view.MainView;
+
+/**
+ * This is the Main.java and it contains nothing but the main(String[] args) Method
+ * @author philippe
+ *
+ */
+
+public class Main {
+	/**
+	 * 
+	 * @param args Arguments given to the program upon execution.
+	 */
+	public static void main(String[] args) {
+		
+		
+		
+		new MainView();
+
+	}
+
+}

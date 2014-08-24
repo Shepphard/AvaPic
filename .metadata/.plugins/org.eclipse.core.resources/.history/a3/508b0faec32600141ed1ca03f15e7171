@@ -1,0 +1,13 @@
+package mp.edu.hs.trier.de.view.settings;
+
+import javax.swing.JDialog;
+
+public class SettingsDialog extends JDialog {
+
+	public SettingsDialog()
+	{
+		setModal(true);
+		
+		setVisible(true);
+	}
+}

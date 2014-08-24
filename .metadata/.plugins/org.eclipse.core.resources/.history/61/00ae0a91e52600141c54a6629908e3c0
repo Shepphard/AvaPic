@@ -1,0 +1,27 @@
+package mp.edu.hs.trier.de.view.save;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+public class SaveFileView extends JFileChooser{
+	
+	public SaveFileView()
+	{
+		showSaveDialog(this);
+		
+		File destination = getSelectedFile();
+		int result;
+		if(getSelectedFile().exists())
+		{
+			result = JOptionPane.showConfirmDialog(this, "The file already exists! Do you want to overwrite it?", "File exists", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+		}
+		else
+		{
+			System.out.println("It doesn't exist!");
+		}
+		
+		System.out.println(destination.getAbsolutePath());
+	}
+}

@@ -1,0 +1,50 @@
+package mp.edu.hs.trier.de.view.maincontainers;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.view.maincontainers.avatar.ElementView;
+
+@SuppressWarnings("serial")
+public class AvatarView extends JPanel{
+
+
+	
+	//private ElementView head, body, legs;
+	
+	private ElementView view;
+	
+	public AvatarView(SettingsModel sm, JFrame frame, ArrayList<ShapeModel> shapeModels)
+	{
+
+		setLayout(new BorderLayout());
+		setBackground(Color.GRAY);
+		Border lineBorder = BorderFactory.createEtchedBorder();
+		setBorder(lineBorder);
+
+		view = new ElementView(sm, frame, shapeModels);
+		
+		for(ShapeModel m : shapeModels)
+		{
+			m.addListener(view);
+		}
+
+		sm.addListener(view);
+		add(new JLabel("Test"), BorderLayout.NORTH);
+		add(view, BorderLayout.CENTER);
+
+		
+	}
+	
+
+}

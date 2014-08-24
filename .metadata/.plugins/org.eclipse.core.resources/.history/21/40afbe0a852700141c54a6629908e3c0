@@ -1,0 +1,31 @@
+package mp.edu.hs.trier.de.view.settings;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JDialog;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.settings.elements.AAView;
+import mp.edu.hs.trier.de.view.settings.elements.LocationView;
+import mp.edu.hs.trier.de.view.settings.elements.PictureFormatView;
+
+public class SettingsDialog extends JDialog {
+	
+	private PictureFormatView pfView;
+	
+	public SettingsDialog(SettingsModel sm)
+	{
+		setLayout(new GridLayout(0, 1));
+		//setLayout(new FlowLayout());
+		
+		setModal(true);
+		
+		setSize(400,400);
+		
+		add(new PictureFormatView(sm));
+		add(new LocationView(sm));
+		add(new AAView(sm));
+		setVisible(true);
+	}
+}

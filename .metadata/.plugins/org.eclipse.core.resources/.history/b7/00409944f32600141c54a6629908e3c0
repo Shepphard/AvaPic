@@ -1,0 +1,14 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class AAView extends JPanel {
+	
+	public AAView(SettingsModel sm)
+	{
+		
+	}
+
+}

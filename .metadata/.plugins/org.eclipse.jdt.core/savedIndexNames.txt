@@ -1,0 +1,4 @@
+INDEX VERSION 1.127+/Users/philippe/Documents/Trier/FH Trier/4 Semester/Medienprojekt/Workspace/.metadata/.plugins/org.eclipse.jdt.core
+3778916976.index
+3093738264.index
+954462981.index

@@ -1,0 +1,30 @@
+package mp.edu.hs.trier.de.controller.settings;
+
+import java.io.File;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SettingsController {
+
+	private SettingsModel sm;
+	
+	public SettingsController(SettingsModel sm)
+	{
+		this.sm = sm;
+	}
+	
+	public void changeAASettings(boolean aa)
+	{
+		sm.setAntiAliasing(aa);
+	}
+	
+	public void changeLocation(File file)
+	{
+		sm.setRenderLocation(file);
+	}
+	
+	public void setFormat(String format)
+	{
+		sm.setPictureFormat(format);
+	}
+}

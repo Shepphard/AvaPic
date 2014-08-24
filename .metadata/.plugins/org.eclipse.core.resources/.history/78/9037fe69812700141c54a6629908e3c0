@@ -1,0 +1,23 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class FilledController {
+	
+	private ShapeModel model;
+	
+	public FilledController(ShapeModel model)
+	{
+		this.model = model;
+	}
+	
+	public void setFilled(boolean fill)
+	{
+		model.setFilled(fill);
+	}
+	
+	public void setStroked(boolean stroke)
+	{
+		model.setStroke(stroke);
+	}
+}

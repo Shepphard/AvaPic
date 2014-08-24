@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;mp.edu.hs.trier.de.view.ChangeElements&apos; to &apos;ChangeElementsView&apos;&#x0A;- Original project: &apos;PictoTar&apos;&#x0A;- Original element: &apos;mp.edu.hs.trier.de.view.ChangeElements&apos;&#x0A;- Renamed element: &apos;mp.edu.hs.trier.de.view.ChangeElementsView&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ChangeElements&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;mp.edu.hs.trier.de.view{ChangeElements.java[ChangeElements" matchStrategy="1" name="ChangeElementsView" qualified="false" references="true" similarDeclarations="false" stamp="1403787183043" textual="false" version="1.0"/>
+</session>

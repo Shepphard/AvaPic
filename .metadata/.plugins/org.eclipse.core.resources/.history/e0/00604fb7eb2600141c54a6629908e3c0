@@ -1,0 +1,5 @@
+package mp.edu.hs.trier.de.view.settings;
+
+public class ReadWriteSettings {
+
+}

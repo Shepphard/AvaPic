@@ -1,0 +1,29 @@
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+
+public class TabTest extends JTabbedPane implements ChangeListener {
+
+	private int numOfElements = 1;
+	
+	public TabTest()
+	{
+		JPanel newPanel = new JPanel();
+		addTab("Test", null);
+		addTab("+", newPanel);
+		
+		
+		addChangeListener(this);
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		
+		JTabbedPane p = (JTabbedPane)e.getSource();
+		
+		int
+		
+	}
+}

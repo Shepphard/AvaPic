@@ -1,0 +1,9 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class ParameterController {
+
+	private ShapeModel model;
+	
+}

@@ -1,0 +1,30 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class LocationView extends JPanel {
+
+	private SettingsModel sm;
+	
+	public LocationView(SettingsModel sm)
+	{
+		this.sm = sm;
+
+		Border lineBorder = BorderFactory.createTitledBorder("Save Location");
+		setBorder(lineBorder);
+		
+		setLayout(new GridLayout(4, 1));
+		
+		add(new JLabel("Save Folder"));
+		add(new JTextArea(sm.getLocation().getAbsolutePath()));
+		
+	}
+}

@@ -1,0 +1,416 @@
+package mp.edu.hs.trier.de.model;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
+/**
+ * 
+ * Contains the Main Properties of each Element shown on Screen.
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+public class ShapeModel{
+	
+	private boolean isInit = false;
+	
+	private static int numOfShapeModels = 0;
+	
+	private String m_name;
+	
+	private Shape m_shape;
+
+	private boolean m_stroke;
+	private boolean m_filled;
+	
+	private Color m_strokeColor;
+	private Color m_fillColor;
+	
+	private int m_strokeWidth;
+	
+	private int m_sizeX;
+	private int m_sizeY;
+	
+	private int m_maxSizeX;
+	private int m_maxSizeY;
+	
+	private int m_offSetX;
+	private int m_offSetY;
+	
+	private int m_rotation;
+	
+	// TODO CENTER
+	// Just needs to be initialized
+	private int m_centerX = 50;
+	private int m_centerY = 50;
+	
+	private ArrayList<IShapeModelChanged> listeners;
+	
+	/**
+	 * The constructor of the Model. Needs the X and Y sizes of the object.
+	 * 
+	 * @param sizeX Size in the x-Axis of the Object
+	 * @param sizeY Size in the y-Axis of the Object
+	 * @param m_centerX Center on the x-Axis of the Object
+	 * @param m_centerY Center on the y-Axis of the Object
+	 */
+	public ShapeModel(String name, int maxSizeX, int maxSizeY)
+	{
+		numOfShapeModels++;
+		
+		//Initialise listener Array
+		this.listeners = new ArrayList<>();
+		
+		//Set Maximum Size
+		this.m_maxSizeX = maxSizeX;
+		this.m_maxSizeY = maxSizeY;
+		
+		//init offset 0
+		this.m_offSetX = 0;
+		this.m_offSetY = 0;
+		
+		//Start rotation always at 0
+		this.m_rotation = 0;
+		
+		this.m_name = name;
+		
+		randomize();
+		
+		
+		
+	}
+	
+	// PUBLIC FUNCTIONS
+	
+	public ShapeModel() {
+		this("Shape",100,100);
+	}
+
+	// listeners
+	public void addListener(IShapeModelChanged l)
+	{
+		listeners.add(l);
+	}
+	
+	public void removeListener(IShapeModelChanged l)
+	{
+		listeners.remove(l);
+	}
+	
+	// final
+	
+	public String getName()
+	{
+		return this.m_name;
+	}
+	
+	public void setName(String name, int index)
+	{
+		this.m_name = name;
+		fireNameListeners(index);
+	}
+	
+	public int getOffSetX()
+	{
+		return this.m_offSetX;
+	}
+	
+	public void setOffSetX(int osX)
+	{
+		this.m_offSetX = osX;
+		fireSizeListeners();
+	}
+	
+	public int getOffSetY()
+	{
+		return this.m_offSetY;
+	}
+	
+	public void setOffSetY(int osY)
+	{
+		this.m_offSetY = osY;
+		fireSizeListeners();
+	}
+	
+	public int getSIZE_X_MAX() {
+		return m_maxSizeX;
+	}
+
+	public int getSIZE_Y_MAX() {
+		return m_maxSizeY;
+	}
+
+	
+	// getter and setter
+	
+	public void setShape(Shape shape)
+	{
+		this.m_shape = shape;
+		fireShapeListeners();
+	}
+	
+	public void setShape(String shape)
+	{
+		switch(shape)
+		{
+		case "Triangle":
+			this.m_shape = Shape.TRIANGLE;
+			break;
+		case "Square":
+			this.m_shape = Shape.SQUARE;
+			break;
+		case "Pentagon":
+			this.m_shape = Shape.PENTAGON;
+			break;
+		case "Hexagon":
+			this.m_shape = Shape.HEXAGON;
+			break;
+		case "Heptagon":
+			this.m_shape = Shape.HEPTAGON;
+			break;
+		case "Octagon":
+			this.m_shape = Shape.OCTAGON;
+			break;
+		case "Kreis":
+			this.m_shape = Shape.CIRCLE;
+			break;
+		case "Halbkreis":
+			this.m_shape = Shape.HALFCIRCLE;
+			break;
+		}
+		fireShapeListeners();
+	}
+	
+	public Shape getShape()
+	{
+		return m_shape;
+	}
+	
+	public boolean isFilled()
+	{
+		return this.m_filled;
+	}
+	
+	public void setFilled(boolean filled)
+	{
+		this.m_filled = filled;
+		fireFillListeners();
+	}
+	
+	public boolean isStroke()
+	{
+		return this.m_stroke;
+	}
+	
+	public void setStroke(boolean stroke)
+	{
+		this.m_stroke = stroke;
+		fireStrokeListeners();
+	}
+	
+	public void setStrokeColor(Color c)
+	{
+		this.m_strokeColor = c;
+		fireStrokeListeners();
+	}
+	
+	public Color getStrokeColor()
+	{
+		return m_strokeColor;
+	}
+	
+	public void setFillColor(Color c)
+	{
+		this.m_fillColor = c;
+		fireFillListeners();
+	}
+	
+	public Color getFillColor()
+	{
+		return this.m_fillColor;
+	}
+	
+	public void setSizeX(int sizeX)
+	{
+		this.m_sizeX = sizeX;
+		fireSizeListeners();
+	}
+	
+	public void setMaxSizeX(int sizeX)
+	{
+		this.m_maxSizeX = sizeX;
+		fireSizeListeners();
+	}
+	
+	public int getSizeX()
+	{
+		return m_sizeX;
+	}
+	
+	public void setSizeY(int sizeY)
+	{
+		this.m_sizeY = sizeY;
+		fireSizeListeners();
+	}
+	public void setMaxSizeY(int sizeY)
+	{
+		this.m_maxSizeY = sizeY;
+		fireSizeListeners();
+	}
+	
+	public int getSizeY()
+	{
+		return m_sizeY;
+	}
+	
+	public void setSize(int sizeX, int sizeY)
+	{
+		setSizeX(sizeX);
+		setSizeY(sizeY);
+	}
+	
+	public void setCenter(int centerX, int centerY)
+	{
+		this.m_centerX = centerX;
+		this.m_centerY = centerY;
+		//fireListeners();
+	}
+	
+	public int getCenterX()
+	{
+		return this.m_centerX;
+	}
+	
+	public int getCenterY()
+	{
+		return this.m_centerY;
+	}
+	
+	public void setRotation(int angle)
+	{
+		this.m_rotation = angle;
+		fireRotationListeners();
+	}
+	
+	public int getRotation()
+	{
+		return m_rotation;
+	}
+	
+	public int getStrokeWidth()
+	{
+		return this.m_strokeWidth;
+	}
+	
+	public void setStrokeWidth(int strokeWidth)
+	{
+		this.m_strokeWidth = strokeWidth;
+		fireStrokeListeners();
+	}
+	
+	public void randomize()
+	{
+		//Will never produce Halfcircle
+		
+		// Randomize Shape
+		Shape[] shapeList = Shape.values();
+		
+		double rand = Math.random();
+		rand *= shapeList.length-1;
+		int result = (int)rand;
+		
+		this.m_shape = shapeList[result];
+		
+		// Randomize Color
+		this.m_strokeColor = new Color((int)(Math.random()*16777216));
+		this.m_fillColor = new Color((int)(Math.random()*16777216));
+		
+		// Randomize StrokeWidth
+		this.m_strokeWidth = (int)(Math.random()*4+1);
+		
+		// Randomize Stroke/Fill Visibility
+		Random randBool = new Random();
+		this.m_stroke = randBool.nextBoolean();
+		
+		if(this.m_stroke)
+		{
+			this.m_filled = randBool.nextBoolean();
+		}
+		else
+		{
+			this.m_filled = true;
+		}
+		
+		// Randomize Size
+		setSizeX((int)(Math.random()*this.m_maxSizeX+1));
+		setSizeY((int)(Math.random()*this.m_maxSizeY+1));
+		
+		if(!isInit)
+			isInit = true;
+		else
+		{
+			fireAllListeners();
+		}
+		
+	}
+	
+	// PRIVATE
+	
+	private void fireAllListeners()
+	{
+		fireRotationListeners();
+		fireShapeListeners();
+		fireStrokeListeners();
+		fireFillListeners();
+		fireSizeListeners();
+	}
+	
+	private void fireRotationListeners()
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.rotationChanged();
+		}
+	}
+	
+	private void fireShapeListeners()
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.shapeChanged();
+		}
+	}
+	
+	private void fireStrokeListeners()
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.strokeChanged();
+		}
+	}
+	
+	private void fireFillListeners()
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.fillChanged();
+		}
+	}
+	
+	private void fireSizeListeners()
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.sizeChanged();
+		}
+	}
+	private void fireNameListeners(int index)
+	{
+		for(IShapeModelChanged l : listeners)
+		{
+			l.nameChanged(index);
+		}
+	}
+	
+}

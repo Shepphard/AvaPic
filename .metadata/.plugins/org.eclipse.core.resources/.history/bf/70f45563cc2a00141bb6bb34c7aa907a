@@ -1,0 +1,155 @@
+package mp.edu.hs.trier.de.model;
+
+import java.io.File;
+import java.util.ArrayList;
+
+public class SettingsModel {
+
+	private String filename;
+	
+	private String pictureFormat;
+	private boolean antiAliasing;
+	private File location;
+	private File renderLocation;
+	
+	private int numberOfModels;
+	
+	private boolean saved;
+	private boolean recentlyChanged;
+	
+	private ArrayList<ISettingsUpdated> listeners;
+	
+	public SettingsModel(String filename, String pictureFormat, boolean antiAliasing, File location, boolean saved)
+	{
+		this.filename = filename;
+		this.pictureFormat = pictureFormat;
+		this.antiAliasing = antiAliasing;
+		this.location = location;
+		this.renderLocation = new File(location.getAbsolutePath()+"/render/");
+		
+		this.saved = saved;
+		this.recentlyChanged = true;
+		
+		this.listeners = new ArrayList<>();
+	}
+	
+	public SettingsModel()
+	{
+		this(null, "png", false, new File("/"), false);
+	}
+	
+	//LISTENER
+	public void addListener(ISettingsUpdated l)
+	{
+		this.listeners.add(l);
+	}
+	
+	public void removeListener(ISettingsUpdated l)
+	{
+		this.listeners.remove(l);
+	}
+	
+	private void fireAvatarListeners()
+	{
+		for(ISettingsUpdated l : listeners)
+		{
+			l.updateAvatar();
+		}
+	}
+	
+	private void fireSettingsListeners()
+	{
+		for(ISettingsUpdated l : listeners)
+		{
+			l.updateSettings();
+		}
+	}
+	
+	//GETTER SETTER
+	public int getAmountModel()
+	{
+		return this.numberOfModels;
+	}
+	
+	public void addModel()
+	{
+		numberOfModels++;
+	}
+	
+	public boolean isRecentlyChanged()
+	{
+		return this.recentlyChanged;
+	}
+	
+	public void setRecentlyChanged(boolean rc)
+	{
+		this.recentlyChanged = rc;
+		fireSettingsListeners();
+	}
+	
+	public String getPictureFormat()
+	{
+		return this.pictureFormat;
+	}
+	
+	public void setPictureFormat(String format)
+	{
+		this.pictureFormat = format;
+		fireSettingsListeners();
+	}
+	
+	public boolean isAntiAliasing()
+	{
+		return this.antiAliasing;
+	}
+	
+	public void setAntiAliasing(boolean aa)
+	{
+		this.antiAliasing = aa;
+		fireAvatarListeners();
+	}
+	
+	public File getLocation()
+	{
+		return this.location;
+	}
+	
+	public void setLocation(File location)
+	{
+		this.location = location;
+	}
+	
+	public File getRenderLocation()
+	{
+		return this.renderLocation;
+	}
+	
+	public void setRenderLocation(File location)
+	{
+		this.renderLocation = location;
+		fireSettingsListeners();
+	}
+	
+	public boolean isSaved()
+	{
+		return this.saved;
+	}
+	
+	public void setSaved(boolean saved)
+	{
+		this.saved = saved;
+		fireSettingsListeners();
+	}
+	
+	public String getFileName()
+	{
+		return this.filename;
+	}
+	
+	public void setFileName(String filename)
+	{
+		this.filename = filename;
+	}
+	
+	
+}

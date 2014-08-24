@@ -1,0 +1,19 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.Model;
+import mp.edu.hs.trier.de.model.Shape;
+
+public class ShapeController {
+	
+	private Model model;
+	
+	public ShapeController(Model model)
+	{
+		this.model = model;
+	}
+	
+	public void setShape(Shape shape)
+	{
+		model.setShape(shape);
+	}
+}

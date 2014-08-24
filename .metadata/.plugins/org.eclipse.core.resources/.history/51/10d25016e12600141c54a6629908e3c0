@@ -1,0 +1,99 @@
+package mp.edu.hs.trier.de.model;
+
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
+public class SettingsModel {
+
+	private String pictureFormat;
+	private boolean antiAliasing;
+	private File location;
+	private File renderLocation;
+	
+	private boolean saved;
+	
+	private ArrayList<ISettingsUpdated> listeners;
+	
+	public SettingsModel(String pictureFormat, boolean antiAliasing, File location, boolean saved)
+	{
+		this.pictureFormat = pictureFormat;
+		this.antiAliasing = antiAliasing;
+		this.location = location;
+		this.renderLocation = new File(location.getAbsolutePath()+"render/");
+		
+		this.saved = saved;
+		
+		this.listeners = new ArrayList<>();
+	}
+	
+	public SettingsModel()
+	{
+		this("png", false, new File("/"), false);
+	}
+	
+	//LISTENER
+	public void addListener(ISettingsUpdated l)
+	{
+		this.listeners.add(l);
+	}
+	
+	public void removeListener(ISettingsUpdated l)
+	{
+		this.listeners.remove(l);
+	}
+	
+	private void fireListeners()
+	{
+		for(ISettingsUpdated l : listeners)
+		{
+			l.update();
+		}
+	}
+	
+	//GETTER SETTER
+	public String getPictureFormat()
+	{
+		return this.pictureFormat;
+	}
+	
+	public void setPictureFormat(String format)
+	{
+		this.pictureFormat = format;
+		fireListeners();
+	}
+	
+	public boolean isAntiAliasing()
+	{
+		return this.antiAliasing;
+	}
+	
+	public void setAntiAliasing(boolean aa)
+	{
+		this.antiAliasing = aa;
+		fireListeners();
+	}
+	
+	public File getLocation()
+	{
+		return this.location;
+	}
+	
+	public void setLocation(File location)
+	{
+		this.location = location;
+		fireListeners();
+	}
+	
+	public boolean isSaved()
+	{
+		return this.saved;
+	}
+	
+	public void setSaved(boolean saved)
+	{
+		this.saved = saved;
+	}
+	
+	
+}

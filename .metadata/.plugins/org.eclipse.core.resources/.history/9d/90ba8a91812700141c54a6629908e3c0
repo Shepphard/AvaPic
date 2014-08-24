@@ -1,0 +1,15 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class StrokeController {
+
+	private ShapeModel model;
+	
+	public StrokeController(ShapeModel model)
+	{
+		this.model = model;
+	}
+	
+
+}

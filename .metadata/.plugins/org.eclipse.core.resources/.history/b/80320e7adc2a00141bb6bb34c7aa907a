@@ -1,0 +1,62 @@
+package mp.edu.hs.trier.de.view.maincontainers.change;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeColor;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeName;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeOffset;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeRotation;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeShape;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.ChangeSize;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.Randomize;
+
+@SuppressWarnings("serial")
+public class ChangeView extends JPanel{
+
+	private ParameterController pCont;
+	
+	public ChangeView(ShapeModel model, SettingsModel sm, JFrame frame, int index)
+	{
+		this.pCont = new ParameterController(model, sm);
+		
+		setLayout(new FlowLayout());
+		
+		
+		
+		setLayout(new GridLayout(0,1));
+
+		ChangeName name = new ChangeName(model, pCont, index);
+		add(name);
+		
+		ChangeShape shape = new ChangeShape(model, pCont);
+		model.addListener(shape);
+		add(shape);	
+
+		ChangeRotation rotation = new ChangeRotation(model, pCont);
+		model.addListener(rotation);
+		add(rotation);
+
+		ChangeColor cCol = new ChangeColor(model, pCont);
+		model.addListener(cCol);
+		add(cCol);
+		
+		ChangeSize size = new ChangeSize(model, pCont);
+		model.addListener(size);
+		add(size);
+		
+		ChangeOffset offset = new ChangeOffset(model, pCont);
+		model.addListener(offset);
+		add(offset);
+		
+		Randomize rand = new Randomize(pCont);
+		
+	}
+
+}

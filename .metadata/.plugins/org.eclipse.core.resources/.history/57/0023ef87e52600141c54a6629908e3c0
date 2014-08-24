@@ -1,0 +1,26 @@
+package mp.edu.hs.trier.de.view.save;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
+public class SaveFileView extends JFileChooser{
+	
+	public SaveFileView()
+	{
+		showSaveDialog(this);
+		
+		File destination = getSelectedFile();
+		
+		if(getSelectedFile().exists())
+		{
+			System.out.println("It exists!");
+		}
+		else
+		{
+			System.out.println("It doesn't exist!");
+		}
+		
+		System.out.println(destination.getAbsolutePath());
+	}
+}

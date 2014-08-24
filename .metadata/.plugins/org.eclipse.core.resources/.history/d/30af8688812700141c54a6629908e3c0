@@ -1,0 +1,16 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class SizeController {
+
+	private ShapeModel model;
+	
+	public SizeController(ShapeModel model)
+	{
+		this.model = model;
+	}
+	
+
+	
+}

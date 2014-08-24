@@ -1,0 +1,206 @@
+package mp.edu.hs.trier.de.controller.io;
+
+import java.io.File;
+import java.io.FileOutputStream;
+
+import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLEventWriter;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Characters;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartDocument;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SaveFileController {
+
+	private SettingsModel sm;
+	private ShapeModel[] models;
+	
+	public SaveFileController(SettingsModel sm, ShapeModel...models)
+	{
+		this.sm = sm;
+		this.models = models;
+	}
+	
+	public void save(File file) throws Exception
+	{
+		File renderPath = new File(file.getParent()+"/render/");
+		if(!sm.isSaved())
+		{
+			if(!file.getName().endsWith(".avatar"))
+			{
+				file = new File(file.getAbsolutePath()+".avatar");
+			}
+			
+			this.sm.setFileName(file.getName());
+			
+			this.sm.setLocation(file.getParentFile());
+			this.sm.setRenderLocation(renderPath);
+		}
+		
+		if(!renderPath.exists())
+		{
+			renderPath.mkdir();
+		}
+		
+		String settingsName = file.getName().substring(0, file.getName().length()-".avatar".length())+".settings";
+		
+		saveAvatarFile(file);
+		
+		file = new File(file.getParent()+"/"+settingsName);
+		
+		saveSettingsFile(file);
+		
+		this.sm.setSaved(true);
+		this.sm.setRecentlyChanged(false);
+	}
+	
+	public void saveAvatarFile(File file) throws Exception {
+	    // create an XMLOutputFactory
+	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+	    // create XMLEventWriter
+	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(file));
+	    // create an EventFactory
+	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+	    XMLEvent end = eventFactory.createDTD("\n");
+	    // create and write Start Tag
+	    StartDocument startDocument = eventFactory.createStartDocument();
+	    eventWriter.add(startDocument);
+
+	    // create config open tag
+	    StartElement configStartElement = eventFactory.createStartElement("",
+	        "", "avatar");
+	    eventWriter.add(configStartElement);
+	    eventWriter.add(end);
+	    
+	    
+	    
+	    
+	    for(int i = 0; i < 3; i++)
+	    {
+	    	if(i == 0)
+	    	{
+	    		eventWriter.add(eventFactory.createStartElement("", "", "head"));
+	    		eventWriter.add(end);
+	    	}
+	    	if(i == 1)
+	    	{
+	    		eventWriter.add(eventFactory.createStartElement("", "", "body"));
+	    		eventWriter.add(end);
+    		}
+	    	if(i == 2)
+	    	{
+	    		eventWriter.add(eventFactory.createStartElement("", "", "legs"));
+	    		eventWriter.add(end);
+			}
+	    	
+		    // Write the different nodes
+		    createNode(eventWriter, "shape", models[i].getShape().toString());
+		    createNode(eventWriter, "stroke", models[i].isStroke()+"");
+		    createNode(eventWriter, "fill", models[i].isFilled()+"");
+		    createNode(eventWriter, "strokeColor", models[i].getStrokeColor().toString());
+		    createNode(eventWriter, "fillColor", models[i].getFillColor().toString());
+		    createNode(eventWriter, "strokeWidth", models[i].getStrokeWidth()+"");
+		    createNode(eventWriter, "sizeX", models[i].getSizeX()+"");
+		    createNode(eventWriter, "sizeY", models[i].getSizeY()+"");
+		    createNode(eventWriter, "maxSizeX", models[i].getSIZE_X_MAX()+"");
+		    createNode(eventWriter, "maxSizeY", models[i].getSIZE_Y_MAX()+"");
+		    createNode(eventWriter, "rotation", models[i].getRotation()+"");
+		    createNode(eventWriter, "centerX", models[i].getCenterX()+"");
+		    createNode(eventWriter, "centerY", models[i].getCenterY()+"");
+
+		    if(i == 0)
+	    	{
+	    		eventWriter.add(eventFactory.createEndElement("", "", "head"));
+	    		eventWriter.add(end);
+	    	}
+	    	if(i == 1)
+	    	{
+	    		eventWriter.add(eventFactory.createEndElement("", "", "body"));
+	    		eventWriter.add(end);
+    		}
+	    	if(i == 2)
+	    	{
+	    		eventWriter.add(eventFactory.createEndElement("", "", "legs"));
+	    		eventWriter.add(end);
+			}
+	    
+	    }
+	    
+	    
+	    
+	    
+	    eventWriter.add(eventFactory.createEndElement("", "", "avatar"));
+	    eventWriter.add(end);
+	    eventWriter.add(eventFactory.createEndDocument());
+	    eventWriter.close();
+	  }
+
+	public void saveSettingsFile(File file) throws Exception {
+	    // create an XMLOutputFactory
+	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+	    // create XMLEventWriter
+	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(file));
+	    // create an EventFactory
+	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+	    XMLEvent end = eventFactory.createDTD("\n");
+	    // create and write Start Tag
+	    StartDocument startDocument = eventFactory.createStartDocument();
+	    eventWriter.add(startDocument);
+
+	    // create config open tag
+	    StartElement configStartElement = eventFactory.createStartElement("",
+	        "", "settings");
+	    eventWriter.add(configStartElement);
+	    eventWriter.add(end);
+
+		    // Write the different nodes
+		    createNode(eventWriter, "shape", models[i].getShape().toString());
+		    createNode(eventWriter, "stroke", models[i].isStroke()+"");
+		    createNode(eventWriter, "fill", models[i].isFilled()+"");
+		    createNode(eventWriter, "strokeColor", models[i].getStrokeColor().toString());
+		    createNode(eventWriter, "fillColor", models[i].getFillColor().toString());
+		    createNode(eventWriter, "strokeWidth", models[i].getStrokeWidth()+"");
+		    createNode(eventWriter, "sizeX", models[i].getSizeX()+"");
+		    createNode(eventWriter, "sizeY", models[i].getSizeY()+"");
+		    createNode(eventWriter, "maxSizeX", models[i].getSIZE_X_MAX()+"");
+		    createNode(eventWriter, "maxSizeY", models[i].getSIZE_Y_MAX()+"");
+		    createNode(eventWriter, "rotation", models[i].getRotation()+"");
+		    createNode(eventWriter, "centerX", models[i].getCenterX()+"");
+		    createNode(eventWriter, "centerY", models[i].getCenterY()+"");
+	    
+	    
+	    
+	    
+	    eventWriter.add(eventFactory.createEndElement("", "", "settings"));
+	    eventWriter.add(end);
+	    eventWriter.add(eventFactory.createEndDocument());
+	    eventWriter.close();
+	  }
+	
+	  private void createNode(XMLEventWriter eventWriter, String name,
+	      String value) throws XMLStreamException {
+
+	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+	    XMLEvent end = eventFactory.createDTD("\n");
+	    XMLEvent tab = eventFactory.createDTD("\t");
+	    // create Start node
+	    StartElement sElement = eventFactory.createStartElement("", "", name);
+	    eventWriter.add(tab);
+	    eventWriter.add(sElement);
+	    // create Content
+	    Characters characters = eventFactory.createCharacters(value);
+	    eventWriter.add(characters);
+	    // create End node
+	    EndElement eElement = eventFactory.createEndElement("", "", name);
+	    eventWriter.add(eElement);
+	    eventWriter.add(end);
+
+	  }
+	
+}

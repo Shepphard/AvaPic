@@ -1,0 +1,48 @@
+package mp.edu.hs.trier.de.controller.io;
+
+import java.io.File;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SaveFileController {
+
+	private SettingsModel sm;
+	private ShapeModel[] models;
+	
+	public SaveFileController(SettingsModel sm, ShapeModel...models)
+	{
+		this.sm = sm;
+		this.models = models;
+	}
+	
+	public void save(File file)
+	{
+		if(!sm.isSaved())
+		{
+			
+			
+			if(!file.getName().endsWith(".avatar"))
+			{
+				file = new File(file.getAbsolutePath()+".avatar");
+			}
+			
+			this.sm.setFileName(file.getName());
+			
+			this.sm.setLocation(file.getParentFile());
+			this.sm.setRenderLocation(new File(file.getParent()+"/render/"));
+			
+		}
+		//modelsToXML
+		
+		//write them into File!
+		
+		this.sm.setSaved(true);
+	}
+	
+	private void modelsToXML(SettingsModel sm, ShapeModel[] models)
+	{
+		//here the magic happens
+	}
+	
+}

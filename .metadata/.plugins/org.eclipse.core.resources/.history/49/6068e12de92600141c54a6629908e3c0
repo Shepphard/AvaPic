@@ -1,0 +1,96 @@
+package mp.edu.hs.trier.de.view;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import mp.edu.hs.trier.de.controller.RandomizeController;
+import mp.edu.hs.trier.de.model.Model;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.save.SaveFileView;
+import mp.edu.hs.trier.de.view.settings.SettingsDialog;
+
+@SuppressWarnings("serial")
+public class MenuView extends JMenuBar implements ActionListener{
+	
+	private RandomizeController rdCont;
+	
+	private SettingsModel sm;
+	
+	private JMenu generalMenu;
+	
+	private JMenuItem open; // TODO
+	private JMenuItem save;
+	private JMenuItem saveAs; // TODO
+	//----------------------
+	private JMenuItem settings;
+	
+	private JMenuItem endProgram;
+	private JMenuItem randomize;
+	
+	public MenuView(Model head, Model body, Model legs, SettingsModel sm)
+	{
+		this.sm = sm;
+		this.rdCont = new RandomizeController(head, body, legs);
+		
+		generalMenu = new JMenu("Datei");
+		
+		open = new JMenuItem("Öffnen");
+		open.setActionCommand("open");
+		open.addActionListener(this);
+		
+		save = new JMenuItem("Speichern...");
+		save.setActionCommand("save");
+		save.addActionListener(this);
+		
+		saveAs = new JMenuItem("Speichern unter...");
+		saveAs.setActionCommand("save as");
+		saveAs.addActionListener(this);
+		
+		settings = new JMenuItem("Einstellungen");
+		settings.setActionCommand("settings");
+		settings.addActionListener(this);
+		
+		endProgram = new JMenuItem("Beenden");
+		endProgram.setActionCommand("exit");
+		endProgram.addActionListener(this);
+		
+		randomize = new JMenuItem("Randomize");
+		randomize.setActionCommand("randomize");
+		randomize.addActionListener(this);
+		
+		generalMenu.add(open);
+		generalMenu.add(save);
+		generalMenu.add(saveAs);
+		generalMenu.addSeparator();
+		generalMenu.add(settings);
+		generalMenu.add(endProgram);
+		
+		
+		add(generalMenu);
+		add(randomize);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("exit"))
+			System.exit(0);
+		if(e.getActionCommand().equals("randomize"))
+		{
+			rdCont.randomize();
+		}
+		if(e.getActionCommand().equals("settings"))
+		{
+			new SettingsDialog(sm);
+		}
+		if(e.getActionCommand().equals("save"))
+		{
+			new SaveFileView(sm);
+		}
+			
+		
+	}
+}

@@ -1,0 +1,18 @@
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
+
+public class TabTest extends JTabbedPane {
+
+	public TabTest()
+	{
+		JPanel newPanel = new JPanel();
+		addTab("Test", null);
+		addTab("+", newPanel);
+		
+		if(panel.)
+		{
+			System.out.println("Test");
+		}
+	}
+}

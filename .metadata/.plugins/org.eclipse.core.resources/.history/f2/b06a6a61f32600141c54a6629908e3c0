@@ -1,0 +1,19 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class AAView extends JPanel {
+	
+	public AAView(SettingsModel sm)
+	{
+		setLayout(new FlowLayout());
+		
+		add(new JLabel("Use Anti-Aliasing in Preview?"));
+	}
+
+}

@@ -1,0 +1,24 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class AAView extends JPanel {
+	
+	public AAView(SettingsModel sm)
+	{
+		setLayout(new FlowLayout());
+		
+		JCheckBox jcbox = new JCheckBox();
+		jcbox.setSelected(sm.isAntiAliasing());
+		jcbox.addChangeListener(this);
+		
+		add(new JLabel("Use Anti-Aliasing in Preview?"));
+	}
+
+}

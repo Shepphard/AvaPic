@@ -1,0 +1,24 @@
+package mp.edu.hs.trier.de.view.save;
+
+import java.io.File;
+import mp.edu.hs.trier.de.controller.save.SaveFileController;
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SaveFileView{
+	
+	public SaveFileView(SettingsModel sm, ShapeModel...model)
+	{
+		
+		SaveFileController cont = new SaveFileController(sm, model);
+		
+		if(sm.getFileName() != null)
+		{
+			cont.save(new File(sm.getLocation().getAbsolutePath()+sm.getFileName()));
+		}
+		else
+		{
+			new SaveAsFileView(sm, model);
+		}
+	}
+}

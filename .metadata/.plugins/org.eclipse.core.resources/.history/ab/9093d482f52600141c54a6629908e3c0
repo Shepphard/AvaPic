@@ -1,0 +1,13 @@
+package mp.edu.hs.trier.de.controller.settings;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class PictureFormatController {
+
+	private SettingsModel sm;
+	
+	public PictureFormatController(SettingsModel sm)
+	{
+		this.sm = sm;
+	}
+}

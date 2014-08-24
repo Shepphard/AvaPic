@@ -1,0 +1,89 @@
+package mp.edu.hs.trier.de.view.change.elements;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.IShapeModelChanged;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+/**
+ * Element that shows Ways about how to manipulate the Size of the Element.
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+
+@SuppressWarnings("serial")
+public class ChangeSize extends JPanel implements ChangeListener, IShapeModelChanged{
+	
+	private ShapeModel model;
+	
+	private JSpinner xSpinner;
+	private JSpinner ySpinner;
+	
+	private SpinnerNumberModel spinnerModelX;
+	private SpinnerNumberModel spinnerModelY;
+	
+	private ParameterController pCont;
+	
+	public ChangeSize(ShapeModel model, ParameterController pCont)
+	{
+		this.model = model;
+		this.pCont = pCont;
+		
+		spinnerModelX = new SpinnerNumberModel();
+		spinnerModelY = new SpinnerNumberModel();
+		
+		setLayout(new GridLayout(2,2));
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Size");
+		setBorder(lineBorder);
+		
+		spinnerModelX.setMaximum(model.getSIZE_X_MAX());
+		spinnerModelY.setMaximum(model.getSIZE_Y_MAX());
+		
+		spinnerModelX.setMinimum(1);
+		spinnerModelY.setMinimum(1);
+		
+		xSpinner = new JSpinner();
+		ySpinner = new JSpinner();
+		
+		xSpinner.setModel(spinnerModelX);
+		ySpinner.setModel(spinnerModelY);
+		
+		xSpinner.setValue(model.getSizeX());
+		ySpinner.setValue(model.getSizeY());
+		
+		xSpinner.addChangeListener(this);
+		ySpinner.addChangeListener(this);
+		
+		add(new JLabel("X-Size:"));
+		add(xSpinner);
+		add(new JLabel("Y-Size:"));
+		add(ySpinner);
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		pCont.setSize((int)xSpinner.getValue(), (int)ySpinner.getValue());
+		
+	}
+
+	@Override
+	public void modelChanged() {
+		xSpinner.setValue(model.getSizeX());
+		ySpinner.setValue(model.getSizeY());
+		
+	}
+}

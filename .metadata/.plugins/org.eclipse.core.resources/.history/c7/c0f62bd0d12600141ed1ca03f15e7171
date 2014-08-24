@@ -1,0 +1,21 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class PictureFormatView extends JPanel {
+
+	
+	public PictureFormatView(SettingsModel sm)
+	{
+		Border lineBorder = BorderFactory.createTitledBorder("Rotation");
+		setBorder(lineBorder);
+		
+		JComboBox<String> formats = new JComboBox();
+		
+	}
+}

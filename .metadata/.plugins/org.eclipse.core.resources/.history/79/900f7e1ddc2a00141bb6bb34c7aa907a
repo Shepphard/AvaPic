@@ -1,0 +1,88 @@
+package mp.edu.hs.trier.de.view.maincontainers.change.elements;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.IShapeModelChanged;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+/**
+ * Element that shows Ways about how to manipulate the Size of the Element.
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+
+@SuppressWarnings("serial")
+public class Randomize extends JPanel implements ChangeListener, IShapeModelChanged{
+	
+	private ShapeModel model;
+
+	private ParameterController pCont;
+	
+	public Randomize(ShapeModel model, ParameterController pCont)
+	{
+		this.model = model;
+		this.pCont = pCont;
+		
+		setLayout(new FlowLayout());
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Size");
+		setBorder(lineBorder);
+
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+
+		
+	}
+
+	@Override
+	public void shapeChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rotationChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void strokeChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fillChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sizeChanged() {
+		xSpinner.setValue(model.getSizeX());
+		ySpinner.setValue(model.getSizeY());
+		
+	}
+
+	@Override
+	public void nameChanged(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+}

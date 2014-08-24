@@ -1,0 +1,18 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.Model;
+
+public class StrokeController {
+
+	private Model model;
+	
+	public StrokeController(Model model)
+	{
+		this.model = model;
+	}
+	
+	public void setStroke(int value)
+	{
+		model.setStrokeWidth(value);
+	}
+}

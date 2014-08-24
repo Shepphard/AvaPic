@@ -1,0 +1,19 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.Model;
+
+public class SizeController {
+
+	private Model model;
+	
+	public SizeController(Model model)
+	{
+		this.model = model;
+	}
+	
+	public void setSize(int sizeX, int sizeY)
+	{
+		model.setSize(sizeX, sizeY);
+	}
+	
+}

@@ -1,0 +1,86 @@
+package mp.edu.hs.trier.de.view.maincontainers;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.settings.SettingsController;
+import mp.edu.hs.trier.de.model.ISettingsUpdated;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.maincontainers.finalization.SaveImageView;
+
+@SuppressWarnings("serial")
+public class FinalisationElementsView extends JPanel implements ISettingsUpdated, ChangeListener, ActionListener {
+	
+	private SettingsModel sm;
+	
+	private SettingsController sCont;
+	
+	public FinalisationElementsView(JPanel avatarView, SettingsModel sm)
+	{
+		setLayout(new FlowLayout());
+		
+		this.sm = sm;
+		sCont = new SettingsController(sm);
+		
+		//AA
+		JCheckBox jcbox = new JCheckBox("Anti-Aliasing");
+		jcbox.setSelected(sm.isAntiAliasing());
+		jcbox.addChangeListener(this);
+
+		add(jcbox);
+		
+		//FORMAT
+		
+		String[] formatNames = {"png", "jpeg", "bmp", "wbmp", "gif"}; 
+
+		JComboBox<String> formats = new JComboBox<String>(formatNames);
+		formats.addActionListener(this);
+		formats.setSelectedItem(sm.getPictureFormat());
+
+		add(new JLabel("Picture Format"));
+		add(formats);
+		
+		
+		
+		
+		
+		add(new SaveImageView(sm, avatarView));
+		
+		
+		updateSettings();
+	}
+
+	@Override
+	public void updateSettings() {
+
+	}
+
+	@Override
+	public void updateAvatar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JCheckBox box = (JCheckBox)e.getSource();
+		sCont.changeAASettings(box.isSelected());
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JComboBox<String> jc = (JComboBox<String>)(e.getSource());
+		sCont.setFormat(jc.getSelectedItem().toString());
+		
+	}
+}

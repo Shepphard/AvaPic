@@ -1,0 +1,41 @@
+package mp.edu.hs.trier.de.view.save;
+
+import java.io.File;
+import java.io.FileFilter;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import mp.edu.hs.trier.de.controller.save.SaveFileController;
+import mp.edu.hs.trier.de.model.Model;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SaveFileView extends JFileChooser{
+	
+	public SaveFileView(Model model, SettingsModel sm)
+	{
+		showSaveDialog(this);
+
+		SaveFileController cont = new SaveFileController(model, sm);
+
+		File destination = getSelectedFile();
+		
+		if(!destination.getName().endsWith("."+sm.getPictureFormat()))
+		{
+			destination = new File(destination.getAbsolutePath()+"."+sm.getPictureFormat());
+		}
+			
+			int answer = 0;
+			
+			if(getSelectedFile().exists())
+			{
+				answer = JOptionPane.showConfirmDialog(this, "The file already exists! Do you want to overwrite it?", "File exists", JOptionPane.OK_OPTION, JOptionPane.WARNING_MESSAGE);
+			}
+			if(answer == 1)
+				JOptionPane.showMessageDialog(this, "The file was not saved", "Not saved", JOptionPane.INFORMATION_MESSAGE);
+			else
+			{
+				
+			}
+	}
+}

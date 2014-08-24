@@ -1,0 +1,137 @@
+package mp.edu.hs.trier.de.view.maincontainers.change.elements;
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.IShapeModelChanged;
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.view.maincontainers.change.elements.color.ColorRectangle;
+
+@SuppressWarnings("serial")
+public class ChangeColor extends JPanel implements ActionListener, IShapeModelChanged{
+
+	private ShapeModel model;
+	private JButton fillButton;
+	private JButton strokeButton;
+	private ParameterController pCont;
+	
+	public ChangeColor(ShapeModel model, ParameterController pCont)
+	{
+		this.model = model;
+		this.pCont = pCont;
+		
+		JPanel panel = new JPanel(new GridLayout(2,2));
+		
+		ImageIcon img = new ImageIcon("img/color.png");
+		
+		
+		setLayout(new GridLayout(2,2));
+		
+//		Border lineBorder = BorderFactory.createTitledBorder("Color Settings");
+//		setBorder(lineBorder);
+		
+		ColorRectangle strokeCol = new ColorRectangle(model, true);
+		ColorRectangle fillCol = new ColorRectangle(model, false);
+		
+		model.addListener(strokeCol);
+		model.addListener(fillCol);
+		
+		strokeButton = new JButton("Set Stroke Color");
+		strokeButton.setActionCommand("stroke");
+		strokeButton.addActionListener(this);
+		
+		fillButton = new JButton("Set Fill Color");
+		fillButton.setActionCommand("fill");
+		fillButton.addActionListener(this);
+		
+		if(model.isFilled())
+			fillButton.setEnabled(true);
+		else
+			fillButton.setEnabled(false);
+		
+		if(model.isStroke())
+			strokeButton.setEnabled(true);
+		else
+			strokeButton.setEnabled(false);
+		
+		
+		
+		
+		panel.add(strokeButton);
+		panel.add(strokeCol);
+		
+		panel.add(fillButton);
+		
+		
+		panel.add(fillCol);
+		
+		add(new JLabel(img));
+		add(panel);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("stroke"))
+			new ChangeColorChooser(model, true, pCont);
+		else
+			new ChangeColorChooser(model, false, pCont);
+		
+	}
+
+
+	private void updateFillStrok()
+	{
+		if(model.isFilled())
+			fillButton.setEnabled(true);
+		else
+			fillButton.setEnabled(false);
+		
+		if(model.isStroke())
+			strokeButton.setEnabled(true);
+		else
+			strokeButton.setEnabled(false);
+	}
+	
+	@Override
+	public void shapeChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rotationChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void strokeChanged() {
+		updateFillStrok();
+		
+	}
+
+	@Override
+	public void fillChanged() {
+		updateFillStrok();
+		
+	}
+
+	@Override
+	public void sizeChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+}

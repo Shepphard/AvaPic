@@ -1,0 +1,11 @@
+import javax.swing.JFrame;
+
+
+public class MainFrame extends JFrame {
+
+	public MainFrame()
+	{
+		super("Test Project");
+		setVisible(true);
+	}
+}

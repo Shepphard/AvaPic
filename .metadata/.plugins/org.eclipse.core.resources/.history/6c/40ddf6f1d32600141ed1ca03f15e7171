@@ -1,0 +1,21 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.settings.SettingsDialog;
+
+public class LocationView extends JPanel {
+
+	private SettingsModel sm;
+	
+	public LocationView(SettingsModel sm)
+	{
+		this.sm = sm;
+
+		Border lineBorder = BorderFactory.createTitledBorder("Save Location");
+		setBorder(lineBorder);
+	}
+}

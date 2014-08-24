@@ -1,0 +1,12 @@
+1406712400472	Rename type 'GobalModel'
+1406714057971	Delete element
+1406714084293	Rename package 'mp.edu.hs.trier.de.model.element'
+1406714094679	Rename type 'Head'
+1406714771324	Delete element
+1406804165526	Rename type 'setShapeController'
+1406808944834	Rename type 'SetShapeController'
+1406809911078	Rename type 'HeadCView'
+1406809920618	Delete element
+1406810049955	Rename package 'mp.edu.hs.trier.de.view.celements'
+1406810061136	Move compilation unit
+1406812565256	Rename type 'SpinnerModel'

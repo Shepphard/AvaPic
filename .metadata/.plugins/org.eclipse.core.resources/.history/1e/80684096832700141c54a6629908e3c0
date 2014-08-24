@@ -1,0 +1,112 @@
+package mp.edu.hs.trier.de.view.change.elements;
+
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.parameters.FilledController;
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.IShapeModelChanged;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class ChangeFilling extends JPanel implements ChangeListener, IShapeModelChanged{
+	
+	private ShapeModel model;
+	private ParameterController pCont;
+	
+	private JCheckBox fillBox;
+	private JCheckBox strokeBox;
+	
+	public ChangeFilling(ShapeModel model, ParameterController pCont)
+	{
+		this.model = model;
+		setLayout(new FlowLayout());
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Fill Settings");
+		setBorder(lineBorder);
+		
+		fillBox = new JCheckBox("Filled");
+		fillBox.setActionCommand("fill");
+		fillBox.addChangeListener(this);
+		if(model.isFilled())
+		{
+			fillBox.setSelected(true);
+		}
+		if(!model.isStroke())
+			fillBox.setEnabled(false);
+		
+		add(fillBox);
+		
+		strokeBox = new JCheckBox("Stroke");
+		strokeBox.setActionCommand("stroke");
+		strokeBox.addChangeListener(this);
+		if(model.isStroke())
+		{
+			strokeBox.setSelected(true);
+		}
+		if(!model.isFilled())
+			strokeBox.setEnabled(false);
+		
+		add(strokeBox);
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JCheckBox box = (JCheckBox)e.getSource();
+		if(box.isSelected() == true)
+			if(box.getActionCommand().equals("stroke"))
+				fCont.setStroked(true);
+			else
+				fCont.setFilled(true);
+		else
+			if(box.getActionCommand().equals("stroke"))
+				fCont.setStroked(false);
+			else
+				fCont.setFilled(false);
+		
+	}
+
+	@Override
+	public void modelChanged() {
+		
+		if(model.isFilled())
+		{
+			fillBox.setSelected(true);
+			
+			if(model.isStroke())
+				fillBox.setEnabled(true);
+			else
+				fillBox.setEnabled(false);
+		}
+		else
+		{
+			fillBox.setSelected(false);
+			
+			if(model.isStroke())
+				fillBox.setEnabled(true);
+			else
+				fillBox.setEnabled(false);
+		}
+		
+		if(model.isStroke())
+		{
+			strokeBox.setSelected(true);
+			
+			if(model.isFilled())
+				strokeBox.setEnabled(true);
+			else
+				strokeBox.setEnabled(false);
+		}
+		else
+		{
+			strokeBox.setSelected(false);
+		}
+		
+	}
+}

@@ -1,0 +1,20 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.Model;
+
+public class RotationController {
+
+	private Model model;
+	
+	public RotationController(Model model)
+	{
+		this.model = model;
+	}
+	public void setRotation(int value)
+	{
+		this.model.setRotation(value);
+	}
+	
+	
+	
+}

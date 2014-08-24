@@ -1,0 +1,21 @@
+package mp.edu.hs.trier.de.view.change;
+
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+@SuppressWarnings("serial")
+public class ChangeElementsView extends JPanel {
+	
+
+	
+	public ChangeElementsView(ShapeModel model, JFrame frame)
+	{
+		setLayout(new GridLayout(0, 1));
+		add(new ChangeView(model, frame));
+
+	}
+}

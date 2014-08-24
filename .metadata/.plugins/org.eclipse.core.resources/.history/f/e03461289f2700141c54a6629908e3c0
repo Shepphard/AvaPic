@@ -1,0 +1,20 @@
+package mp.edu.hs.trier.de.model;
+
+import java.awt.Color;
+
+/**
+ * The Interface for the Model
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+
+public interface IShapeModelChanged {
+	public void modelChanged();
+	public void shapeChanged();
+	public void rotationChanged(int rotation);
+	public void strokeChanged();
+	public void fillChanged();
+	public void sizeChanged();
+}

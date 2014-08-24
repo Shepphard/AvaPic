@@ -1,0 +1,9 @@
+package mp.edu.hs.trier.de.controller.settings;
+
+public class AAChangeController {
+
+	public AAChangeController()
+	{
+		
+	}
+}

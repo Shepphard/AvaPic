@@ -1,0 +1,276 @@
+package mp.edu.hs.trier.de.controller.io;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.Shape;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class OpenFileController {
+
+	static final String shape = "shape";
+	static final String stroke = "stroke";
+	static final String fill = "fill";
+	static final String strokeColor = "strokeColor";
+	static final String fillColor = "fillColor";
+	static final String strokeWidth = "strokeWidth";
+	static final String sizeX = "sizeX";
+	static final String sizeY = "sizeY";
+	static final String maxSizeX = "maxSizeX";
+	static final String maxSizeY = "maxSizeY";
+	static final String rotation = "rotation";
+	static final String centerX = "centerX";
+	static final String centerY = "centerY";
+
+	static final String filename = "filename";
+	static final String pictureformat = "pictureformat";
+	static final String antialiasing = "antialiasing";
+	static final String location = "location";
+	static final String renderlocation = "renderlocation";
+
+	private SettingsModel sm;
+	private ArrayList<ShapeModel> shapeModels;
+
+	public OpenFileController(SettingsModel sm, ArrayList<ShapeModel> shapeModels)
+	{
+		this.sm = sm;
+		this.shapeModels = shapeModels;
+	}
+
+	public void open(File destination)
+	{
+		openAvatar(destination);
+		
+		String settingsName = destination.getName().substring(0, destination.getName().length()-".avatar".length())+".settings";
+		
+		File file = new File(destination.getParent()+"/"+settingsName);
+		
+		openSettings(file);
+		sm.setSaved(true);
+		sm.setRecentlyChanged(false);
+	}
+	private void openAvatar(File destination)
+	{
+		int centerXval = 0;
+		int index = 0;
+		try {
+			// First, create a new XMLInputFactory
+			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			// Setup a new eventReader
+			InputStream in = new FileInputStream(destination);
+			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+			// read the XML document
+	
+			ShapeModel model = new ShapeModel();
+			
+			while (eventReader.hasNext()) {
+				XMLEvent event = eventReader.nextEvent();
+
+				if (event.isStartElement()) {
+					StartElement startElement = event.asStartElement();
+					// If we have an item element, we create a new item
+//					if (startElement.getName().getLocalPart() == ("legs")) {
+//					}
+
+					if (event.isStartElement()) {
+						if (event.asStartElement().getName().getLocalPart()
+								.equals(shape)) {
+							event = eventReader.nextEvent();
+							model.setShape(event.asCharacters().getData());
+							continue;
+						}
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(stroke)) {
+						event = eventReader.nextEvent();
+						boolean tf;
+						if(event.asCharacters().getData().equals("true"))
+							tf = true;
+						else
+							tf = false;
+						model.setStroke(tf);
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(fill)) {
+						event = eventReader.nextEvent();
+						boolean tf;
+						if(event.asCharacters().getData().equals("true"))
+							tf = true;
+						else
+							tf = false;
+						model.setFilled(tf);
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(strokeColor)) {
+						event = eventReader.nextEvent();
+						model.setStrokeColor(new Color(Integer.parseInt(event.asCharacters().getData())));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(fillColor)) {
+						event = eventReader.nextEvent();
+						model.setFillColor(new Color(Integer.parseInt(event.asCharacters().getData())));
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(strokeWidth)) {
+						event = eventReader.nextEvent();
+						model.setStrokeWidth(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(sizeX)) {
+						event = eventReader.nextEvent();
+						model.setSizeX(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(sizeY)) {
+						event = eventReader.nextEvent();
+						model.setSizeY(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(maxSizeX)) {
+						event = eventReader.nextEvent();
+						model.setMaxSizeX(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(maxSizeY)) {
+						event = eventReader.nextEvent();
+						model.setMaxSizeY(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(rotation)) {
+						event = eventReader.nextEvent();
+						model.setRotation(Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(centerX)) {
+						event = eventReader.nextEvent();
+						centerXval = Integer.parseInt(event.asCharacters().getData());
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(centerY)) {
+						event = eventReader.nextEvent();
+						model.setCenter(centerXval, Integer.parseInt(event.asCharacters().getData()));
+						continue;
+					}
+				}
+				// If we reach the end of an item element, we add it to the list
+				if (event.isEndElement()) {
+					EndElement endElement = event.asEndElement();
+//					if (endElement.getName().getLocalPart() == ("head") || endElement.getName().getLocalPart() == ("body") || endElement.getName().getLocalPart() == ("legs")) {
+//						index++;
+//					}
+				}
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+		}
+	}
+	private void openSettings(File destination)
+	{
+		try {
+			// First, create a new XMLInputFactory
+			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			// Setup a new eventReader
+			InputStream in = new FileInputStream(destination);
+			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+			// read the XML document
+	
+
+			while (eventReader.hasNext()) {
+				XMLEvent event = eventReader.nextEvent();
+
+				if (event.isStartElement()) {
+					StartElement startElement = event.asStartElement();
+					// If we have an item element, we create a new item
+					if (startElement.getName().getLocalPart() == ("settings")) {
+					}
+
+					if (event.isStartElement()) {
+						if (event.asStartElement().getName().getLocalPart()
+								.equals(filename)) {
+							event = eventReader.nextEvent();
+							sm.setFileName(event.asCharacters().getData());
+							continue;
+						}
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(pictureformat)) {
+						event = eventReader.nextEvent();
+						
+						sm.setPictureFormat(event.asCharacters().getData());
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(antialiasing)) {
+						event = eventReader.nextEvent();
+						boolean tf;
+						if(event.asCharacters().getData().equals("true"))
+							tf = true;
+						else
+							tf = false;
+						sm.setAntiAliasing(tf);
+						continue;
+					}
+
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(location)) {
+						event = eventReader.nextEvent();
+						sm.setLocation(new File(event.asCharacters().getData()));
+						continue;
+					}
+					if (event.asStartElement().getName().getLocalPart()
+							.equals(renderlocation)) {
+						event = eventReader.nextEvent();
+						sm.setRenderLocation(new File(event.asCharacters().getData()));
+						continue;
+					}
+
+				}
+				// If we reach the end of an item element, we add it to the list
+				if (event.isEndElement()) {
+					EndElement endElement = event.asEndElement();
+					if (endElement.getName().getLocalPart() == ("settings")) {
+
+					}
+				}
+
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+}

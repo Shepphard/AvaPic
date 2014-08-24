@@ -1,0 +1,30 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import java.awt.Color;
+
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class ParameterController {
+
+	private ShapeModel model;
+	
+	public ParameterController(ShapeModel model)
+	{
+		this.model = model;
+	}
+	
+	public void setColor(Color color, boolean stroke)
+	{
+		System.out.println(color.toString());
+
+		if(stroke)
+		{
+			this.model.setStrokeColor(color);
+		}
+		else
+		{
+			this.model.setFillColor(color);
+		}
+	}
+	
+}

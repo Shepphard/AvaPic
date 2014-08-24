@@ -1,0 +1,52 @@
+package mp.edu.hs.trier.de.view.io;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import mp.edu.hs.trier.de.controller.io.OpenFileController;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+@SuppressWarnings("serial")
+public class OpenFileView extends JFileChooser{
+
+	private OpenFileController ofCont;
+	
+	public OpenFileView(SettingsModel sm, ArrayList<ShapeModel> shapeModels)
+	{
+		boolean b_continue = true;
+		int discard = 0;
+		
+		this.ofCont = new OpenFileController(sm, shapeModels);
+		
+		// Check for unsaved Changes first!
+		if(sm.isRecentlyChanged())
+		{
+			discard = JOptionPane.showConfirmDialog(this, "There are unsaved changes. Discard them?", "Unsaved Changes", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_OPTION);
+		}
+		
+		if(discard == 0)
+		{
+			addChoosableFileFilter(new AvatarFilter());
+			setAcceptAllFileFilterUsed(false);
+			
+			if(sm.isSaved())
+				setCurrentDirectory(sm.getLocation());
+			
+			showOpenDialog(this);
+	
+			File destination = getSelectedFile();
+			
+			if(destination == null)
+				b_continue = false;
+			
+			if(b_continue)
+			{
+				ofCont.open(destination);
+			}
+		}
+	}
+}

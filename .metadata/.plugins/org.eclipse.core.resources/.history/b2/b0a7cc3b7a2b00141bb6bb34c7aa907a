@@ -1,0 +1,59 @@
+package mp.edu.hs.trier.de.view.maincontainers;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.settings.SettingsController;
+import mp.edu.hs.trier.de.model.ISettingsUpdated;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.maincontainers.finalization.SaveImageView;
+
+@SuppressWarnings("serial")
+public class FinalisationElementsView extends JPanel implements ISettingsUpdated, ChangeListener {
+	
+	private SettingsModel sm;
+	
+	private SettingsController sCont;
+	
+	public FinalisationElementsView(JPanel avatarView, SettingsModel sm)
+	{
+		setLayout(new FlowLayout());
+		
+		this.sm = sm;
+		sCont = new SettingsController(sm);
+		
+		JCheckBox jcbox = new JCheckBox("Anti-Aliasing?");
+		jcbox.setSelected(sm.isAntiAliasing());
+		jcbox.addChangeListener(this);
+
+		add(jcbox);
+		add(new SaveImageView(sm, avatarView));
+		
+		
+		updateSettings();
+	}
+
+	@Override
+	public void updateSettings() {
+
+	}
+
+	@Override
+	public void updateAvatar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JCheckBox box = (JCheckBox)e.getSource();
+		sCont.changeAASettings(box.isSelected());
+		
+	}
+}

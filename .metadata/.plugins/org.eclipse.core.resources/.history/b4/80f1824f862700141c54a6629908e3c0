@@ -1,0 +1,55 @@
+package mp.edu.hs.trier.de.view.change;
+
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.controller.parameters.ParameterController;
+import mp.edu.hs.trier.de.model.ShapeModel;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeColor;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeFilling;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeRotation;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeShape;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeSize;
+import mp.edu.hs.trier.de.view.maincontainers.change.ChangeStrokeWidth;
+
+@SuppressWarnings("serial")
+public class ChangeView extends JPanel{
+
+	private ParameterController pCont;
+	
+	public ChangeView(ShapeModel model, JFrame frame)
+	{
+		this.pCont = new ParameterController(model);
+		
+		setSize(frame.getWidth()/3, frame.getHeight());
+		setLayout(new GridLayout(0,1));
+
+		ChangeShape shape = new ChangeShape(model, pCont);
+		model.addListener(shape);
+		add(shape);	
+
+		ChangeRotation rotation = new ChangeRotation(model, pCont);
+		model.addListener(rotation);
+		add(rotation);
+
+		ChangeColor cCol = new ChangeColor(model, pCont);
+		model.addListener(cCol);
+		add(cCol);
+		
+		ChangeFilling cfill = new ChangeFilling(model, pCont);
+		model.addListener(cfill);
+		add(cfill);
+		
+		ChangeStrokeWidth stroke = new ChangeStrokeWidth(model, pCont);
+		model.addListener(stroke);
+		add(stroke);
+		
+		ChangeSize size = new ChangeSize(model, pCont);
+		model.addListener(size);
+		add(size);
+		
+	}
+
+}

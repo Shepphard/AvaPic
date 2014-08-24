@@ -1,0 +1,38 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import mp.edu.hs.trier.de.controller.settings.AAChangeController;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class AAView extends JPanel implements ChangeListener{
+	
+	private AAChangeController aaCont;
+	
+	public AAView(SettingsModel sm)
+	{
+		this.aaCont = new AAChangeController(sm);
+		
+		setLayout(new FlowLayout());
+		
+		JCheckBox jcbox = new JCheckBox();
+		jcbox.setSelected(sm.isAntiAliasing());
+		jcbox.addChangeListener(this);
+		
+		add(new JLabel("Use Anti-Aliasing in Preview?"));
+		add(jcbox);
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		JCheckBox box = (JCheckBox)e.getSource();
+		
+	}
+
+}

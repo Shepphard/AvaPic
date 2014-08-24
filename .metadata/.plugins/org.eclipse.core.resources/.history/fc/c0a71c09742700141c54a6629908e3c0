@@ -1,0 +1,14 @@
+package mp.edu.hs.trier.de.controller.settings;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class LocationChangeController {
+	
+	private SettingsModel sm;
+	
+	
+	public LocationChangeController(SettingsModel sm)
+	{
+		this.sm = sm;
+	}
+}

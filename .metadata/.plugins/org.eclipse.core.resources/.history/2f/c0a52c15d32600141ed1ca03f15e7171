@@ -1,0 +1,50 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class PictureFormatView extends JPanel implements ActionListener {
+
+	private SettingsModel sm;
+	
+	public PictureFormatView(SettingsModel sm)
+	{
+		this.sm = sm;
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Picture Format");
+		setBorder(lineBorder);
+		
+		setLayout(new FlowLayout());
+		
+		String[] formatNames = new String[3]; // TODO ImageIO.write(..., thisone, ....) Check available Settings png jpg
+		
+		formatNames[0] = "png";
+		formatNames[1] = "jpg";
+		formatNames[2] = "tar";
+		
+		JComboBox<String> formats = new JComboBox<String>(formatNames);
+		formats.addActionListener(this);
+
+		add(new JLabel("Select the desired format you want the picture to be saved as."));
+		add(formats);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JCombo
+		
+	}
+}

@@ -1,0 +1,16 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import javax.swing.JPanel;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.view.settings.SettingsDialog;
+
+public class LocationView extends JPanel {
+
+	private SettingsModel sm;
+	
+	public LocationView()
+	{
+		this.sm = sm;
+	}
+}

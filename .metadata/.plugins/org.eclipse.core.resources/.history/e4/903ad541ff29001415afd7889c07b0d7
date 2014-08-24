@@ -1,0 +1,15 @@
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
+
+public class TabTest extends JTabbedPane {
+
+	public TabTest()
+	{
+		JPanel panel = new JPanel();
+		
+		addTab("+", panel);
+		
+		if(this.isFocusOwner())
+	}
+}

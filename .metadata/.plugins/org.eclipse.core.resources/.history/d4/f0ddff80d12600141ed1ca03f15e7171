@@ -1,0 +1,24 @@
+package mp.edu.hs.trier.de.view.settings;
+
+import javax.swing.JDialog;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class SettingsDialog extends JDialog {
+
+	private ReadWriteSettings rws;
+	
+	
+	public SettingsDialog(SettingsModel sm)
+	{
+		this.rws = new ReadWriteSettings();
+		
+		setModal(true);
+		
+		setSize(400,400);
+		
+		
+		
+		setVisible(true);
+	}
+}

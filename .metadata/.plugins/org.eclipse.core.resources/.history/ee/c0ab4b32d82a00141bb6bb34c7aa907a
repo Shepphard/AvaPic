@@ -1,0 +1,61 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.controller.settings.SettingsController;
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+@SuppressWarnings("serial")
+public class SizeView extends JPanel implements ActionListener {
+
+
+	private SettingsController sCont;
+	
+	public SizeView(SettingsModel sm, SettingsController sCont)
+	{
+		this.sCont = sCont;
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Size");
+		setBorder(lineBorder);
+		
+		setLayout(new FlowLayout());
+		
+		ArrayList<Integer> sizes = new ArrayList<>();
+		ArrayList<String> formatNames = new ArrayList<>();
+		
+		for(int i = 100; i <= 1000; i+=100)
+		{
+			sizes.add(i);
+			formatNames.add(i+"x"+i);
+		}
+		
+		JComboBox<String> formats = new JComboBox<String>();
+		
+		for(String s : formatNames)
+		{
+			formats.addItem(s);
+		}
+		
+		formats.addActionListener(this);
+		formats.setSelectedItem(sm.getImageSize()*100+"x"+sm.getImageSize()*100);
+		add(formats);
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JComboBox<String> jc = (JComboBox<String>)(e.getSource());
+		sCont.setSize(jc.getSelectedIndex());
+		
+	}
+}

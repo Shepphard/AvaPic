@@ -1,0 +1,17 @@
+package mp.edu.hs.trier.de.view.io;
+
+import javax.swing.JFileChooser;
+
+import mp.edu.hs.trier.de.controller.io.OpenFileController;
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+public class OpenFileView extends JFileChooser{
+
+	private OpenFileController ofCont;
+	
+	public OpenFileView(SettingsModel sm, ShapeModel...models)
+	{
+		
+	}
+}

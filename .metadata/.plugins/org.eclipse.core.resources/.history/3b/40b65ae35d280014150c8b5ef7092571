@@ -1,0 +1,117 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import java.awt.Color;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+import mp.edu.hs.trier.de.model.Shape;
+import mp.edu.hs.trier.de.model.ShapeModel;
+
+/**
+ * 
+ * The General Controller for all the Parameter Changes where the model is affected.
+ * 
+ * @author Philippe Kayser
+ * @version 1.0
+ *
+ */
+
+public class ParameterController {
+
+	
+	private ShapeModel model;
+	private SettingsModel sm;
+	/**
+	 * The Constructor containing the ShapeModel we are currently working with
+	 * 
+	 * @param model The current model
+	 */
+	public ParameterController(ShapeModel model, SettingsModel sm)
+	{
+		this.model = model;
+		this.sm = sm;
+	}
+	
+	/**
+	 * Sets the new Color
+	 * 
+	 * @param color The Color in an RGBA Format
+	 * @param stroke Is the stroke affected or the fill color
+	 */
+	public void setColor(Color color, boolean stroke)
+	{
+		if(stroke)
+		{
+			this.model.setStrokeColor(color);
+		}
+		else
+		{
+			this.model.setFillColor(color);
+		}
+	}
+	
+	/**
+	 * Sets if the element is filled or not
+	 * 
+	 * @param fill The fill Argument
+	 */
+	public void setFilled(boolean fill)
+	{
+		model.setFilled(fill);
+	}
+	
+	
+	/**
+	 * Set if element has a stroke
+	 * 
+	 * @param stroke The stroke Argument
+	 */
+	public void setStroked(boolean stroke)
+	{
+		model.setStroke(stroke);
+	}
+	
+	/**
+	 * Sets the Degree of the Rotation
+	 * 
+	 * @param value The Degree as an integer
+	 */
+	public void setRotation(int value)
+	{
+		this.model.setRotation(value);
+	}
+	
+	/**
+	 * Sets the shape of the element
+	 * 
+	 * @param shape Gives the shape
+	 */
+	public void setShape(Shape shape)
+	{
+		model.setShape(shape);
+	}
+	
+	/**
+	 * Sets the size of the Element
+	 * 
+	 * @param sizeX The Size in X-Direction
+	 * @param sizeY The Size in Y-Direction
+	 */
+	public void setSize(int sizeX, int sizeY)
+	{
+		model.setSize(sizeX, sizeY);
+	}
+	
+	/**
+	 * Sets the width of the Stroke
+	 * @param value Value in Pixel
+	 */
+	public void setStrokeWidth(int value)
+	{
+		model.setStrokeWidth(value);
+	}
+	
+	private void changeHappened()
+	{
+		sm.setRecentlyChanged(true);
+	}
+}

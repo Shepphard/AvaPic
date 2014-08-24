@@ -1,0 +1,40 @@
+package mp.edu.hs.trier.de.model;
+
+import java.awt.Color;
+
+/**
+ * The Interface for the Model
+ * 
+ * @version 1.0
+ * @author Philippe Kayser
+ *
+ */
+
+public interface IShapeModelChanged {
+	
+	private Shape m_shape;
+
+	private boolean m_stroke;
+	private boolean m_filled;
+	
+	private Color m_strokeColor;
+	private Color m_fillColor;
+	
+	private int m_strokeWidth;
+	
+	private int m_sizeX;
+	private int m_sizeY;
+	
+	private final int m_maxSizeX;
+	private final int m_maxSizeY;
+	
+	private int m_rotation;
+	
+	// Just needs to be initialized
+	private int m_centerX = 0;
+	private int m_centerY = 0;
+	
+	public void modelChanged();
+	public void shapeChanged();
+	public void rotationChanged(int rotation);
+}

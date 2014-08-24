@@ -1,0 +1,13 @@
+package mp.edu.hs.trier.de.controller.settings;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class AAChangeController {
+
+	private SettingsModel sm;
+	
+	public AAChangeController()
+	{
+		
+	}
+}

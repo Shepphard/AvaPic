@@ -1,0 +1,70 @@
+package mp.edu.hs.trier.de.view.settings.elements;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import mp.edu.hs.trier.de.model.SettingsModel;
+
+public class LocationView extends JPanel implements ActionListener{
+
+	private SettingsModel sm;
+	
+	private JTextField location;
+	private JTextField renderLocation;
+	
+	public LocationView(SettingsModel sm)
+	{
+		this.sm = sm;
+
+		this.location = new JTextField(sm.getLocation().getAbsolutePath());
+		this.renderLocation = new JTextField(sm.getRenderLocation().getAbsolutePath());
+		
+		Border lineBorder = BorderFactory.createTitledBorder("Save Location");
+		setBorder(lineBorder);
+		
+		setLayout(new GridLayout(4, 1));
+		
+		location.setEditable(false);
+		renderLocation.setEditable(false);
+		
+		JButton rlocChange = new JButton("Change RenderLocation");
+		
+		rlocChange.addActionListener(this);
+		
+
+
+		
+		//Is Saved? Otherwise not Able to change!
+		if(!sm.isSaved())
+		{
+			rlocChange.setEnabled(false);
+		}
+		else
+		{
+			rlocChange.setEnabled(true);
+		}
+		
+		add(new JLabel("Save Folder"));
+		add(location);
+		add(new JLabel("Render Fodler"));
+		add(renderLocation);
+		add(rlocChange);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}

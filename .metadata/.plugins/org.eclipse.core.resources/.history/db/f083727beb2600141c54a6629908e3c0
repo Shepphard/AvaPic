@@ -1,0 +1,24 @@
+package mp.edu.hs.trier.de.controller.parameters;
+
+import mp.edu.hs.trier.de.model.Model;
+
+public class RandomizeController {
+
+	private Model head;
+	private Model body;
+	private Model legs;
+	
+	public RandomizeController(Model head, Model body, Model legs)
+	{
+		this.head = head;
+		this.body = body;
+		this.legs = legs;
+	}
+	
+	public void randomize()
+	{
+		head.randomize();
+		body.randomize();
+		legs.randomize();
+	}
+}
